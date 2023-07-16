@@ -322,44 +322,6 @@ Utils.Blink = function(Object, Goal, Color1, Color2, Time)
 	end)()
 end
 
-Utils.TweenTrans = function(Object, Transparency)
-	local Properties = {
-		TextBox = "TextTransparency",
-		TextLabel = "TextTransparency",
-		TextButton = "TextTransparency",
-		ImageButton = "ImageTransparency",
-		ImageLabel = "ImageTransparency"
-	}
-
-    local Descendants = GetDescendants(Object);
-	for i = 1, #Descendants do
-        local Instance_ = Descendants[i]
-		if (IsA(Instance_, "GuiObject")) then
-			for Class, Property in next, Properties do
-				if (IsA(Instance_, Class) and Instance_[Property] ~= 1) then
-					Utils.Tween(Instance_, "Quad", "Out", .5, {
-						[Property] = Transparency
-					});
-					break
-				end
-			end
-			if Instance_.Name == "Overlay" and Transparency == 0 then -- check for overlay
-				Utils.Tween(Object, "Quad", "Out", .5, {
-					BackgroundTransparency = .5
-				});
-			elseif (Instance_.BackgroundTransparency ~= 1) then
-				Utils.Tween(Instance_, "Quad", "Out", .5, {
-					BackgroundTransparency = Transparency
-				});
-			end
-		end
-	end
-
-	return Utils.Tween(Object, "Quad", "Out", .5, {
-		BackgroundTransparency = Transparency
-	});
-end
-
 Utils.Intro = function(Object)
 	local Frame = Instancenew("Frame")
 	local UICorner = Instancenew("UICorner")
